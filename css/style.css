@@ -542,3 +542,318 @@ a:focus-visible {
   padding: 3px 9px;
   border-radius: 20px;
 }
+/* =========================================================
+   WEEK 2 — SIDEBAR SHELL LAYOUT
+   Fixed sidebar left, content right. Reuses existing tokens.
+   ========================================================= */
+.fa-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.fa-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-800) 100%);
+  border-right: 3px solid var(--brass-500);
+  padding: 22px 0 18px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  overflow-y: auto;
+}
+
+.fa-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px 20px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(246, 243, 236, 0.14);
+}
+
+.fa-sidebar-emblem {
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--brass-500);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.fa-sidebar-emblem svg { width: 18px; height: 18px; }
+
+.fa-sidebar-brand-text {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.92rem;
+  color: var(--parchment-50);
+  line-height: 1.2;
+}
+.fa-sidebar-brand-text small {
+  display: block;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.58rem;
+  color: var(--brass-400);
+  margin-top: 2px;
+}
+
+.fa-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px;
+  gap: 2px;
+}
+
+.fa-sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.78rem;
+  color: rgba(246, 243, 236, 0.72);
+  border-left: 3px solid transparent;
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+.fa-sidebar-nav a svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+.fa-sidebar-nav a:hover {
+  background: rgba(198, 161, 91, 0.10);
+  color: var(--brass-400);
+}
+
+.fa-sidebar-nav a.active {
+  background: rgba(198, 161, 91, 0.14);
+  color: var(--brass-400);
+  border-left-color: var(--brass-500);
+}
+
+.fa-sidebar-divider {
+  height: 1px;
+  background: rgba(246, 243, 236, 0.14);
+  margin: 10px 20px;
+}
+
+.fa-sidebar-logout {
+  color: rgba(246, 243, 236, 0.55) !important;
+}
+.fa-sidebar-logout:hover {
+  background: rgba(166, 48, 59, 0.18) !important;
+  color: #e3949c !important;
+}
+
+.fa-main {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+  padding: 30px 32px 56px;
+}
+
+@media (max-width: 767.98px) {
+  .fa-sidebar { width: 64px; }
+  .fa-sidebar-brand-text,
+  .fa-sidebar-nav a span,
+  .fa-sidebar-nav a { justify-content: center; }
+  .fa-sidebar-brand-text { display: none; }
+  .fa-sidebar-nav a { padding: 12px; }
+  .fa-main { margin-left: 64px; width: calc(100% - 64px); padding: 20px 16px 40px; }
+}
+
+/* =========================================================
+   WEEK 2 — STAT CARDS
+   ========================================================= */
+.fa-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 32px;
+}
+@media (max-width: 767.98px) {
+  .fa-stat-grid { grid-template-columns: 1fr; }
+}
+
+.fa-stat-card {
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+}
+.fa-stat-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 20px;
+  width: 34px; height: 6px;
+  background: var(--brass-500);
+  border-radius: 0 0 4px 4px;
+}
+
+.fa-stat-icon {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  background: var(--parchment-100);
+  color: var(--navy-700);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+}
+.fa-stat-icon svg { width: 19px; height: 19px; }
+
+.fa-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--navy-800);
+  line-height: 1.15;
+}
+
+.fa-stat-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.68rem;
+  color: var(--slate-400);
+  margin-top: 4px;
+}
+
+/* =========================================================
+   WEEK 2 — CONTENT GRID (notices + quick links)
+   ========================================================= */
+.fa-content-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .fa-content-grid { grid-template-columns: 1fr; }
+}
+
+.fa-panel {
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: var(--shadow-soft);
+}
+
+.fa-notice-item {
+  border-left: 3px solid var(--brass-500);
+  background: var(--parchment-50);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+.fa-notice-item:last-child { margin-bottom: 0; }
+
+.fa-notice-date {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.64rem;
+  color: var(--slate-400);
+}
+
+.fa-notice-item h6 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 0.88rem;
+  color: var(--navy-800);
+  margin: 4px 0 4px;
+}
+
+.fa-notice-item p {
+  font-size: 0.85rem;
+  color: var(--slate-600);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.fa-empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--slate-600);
+}
+.fa-empty-state svg { width: 40px; height: 40px; color: var(--brass-500); margin-bottom: 12px; }
+
+/* Outline button (secondary quick link) */
+.btn.fa-btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--navy-700);
+  color: var(--navy-700);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+.btn.fa-btn-outline:hover {
+  background: var(--navy-700);
+  color: #fff;
+}
+
+/* =========================================================
+   WEEK 2 — COURSE CARDS
+   ========================================================= */
+.fa-course-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+@media (max-width: 991.98px) { .fa-course-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 575.98px) { .fa-course-grid { grid-template-columns: 1fr; } }
+
+.fa-course-card {
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s var(--ease), box-shadow 0.15s var(--ease);
+}
+.fa-course-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+
+.fa-course-card-top {
+  background: linear-gradient(135deg, var(--navy-800), var(--navy-700));
+  color: var(--brass-400);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.92rem;
+  padding: 16px;
+}
+
+.fa-course-card-body {
+  padding: 16px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.fa-course-card-body p {
+  font-size: 0.85rem;
+  color: var(--slate-600);
+  line-height: 1.5;
+}
+.fa-course-teacher {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--navy-700);
+  letter-spacing: 0.03em;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--hairline);
+}
