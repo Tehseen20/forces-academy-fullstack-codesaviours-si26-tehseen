@@ -543,8 +543,7 @@ a:focus-visible {
   border-radius: 20px;
 }
 /* =========================================================
-   WEEK 2 — SIDEBAR SHELL LAYOUT
-   Fixed sidebar left, content right. Reuses existing tokens.
+  SIDEBAR SHELL LAYOUT
    ========================================================= */
 .fa-shell {
   display: flex;
@@ -671,7 +670,7 @@ a:focus-visible {
 }
 
 /* =========================================================
-   WEEK 2 — STAT CARDS
+   STAT CARDS
    ========================================================= */
 .fa-stat-grid {
   display: grid;
@@ -727,7 +726,7 @@ a:focus-visible {
 }
 
 /* =========================================================
-   WEEK 2 — CONTENT GRID (notices + quick links)
+    CONTENT GRID (notices + quick links)
    ========================================================= */
 .fa-content-grid {
   display: grid;
@@ -805,7 +804,7 @@ a:focus-visible {
 }
 
 /* =========================================================
-   WEEK 2 — COURSE CARDS
+    COURSE CARDS
    ========================================================= */
 .fa-course-grid {
   display: grid;
@@ -856,4 +855,103 @@ a:focus-visible {
   margin-top: auto;
   padding-top: 12px;
   border-top: 1px dashed var(--hairline);
+}
+
+/* =========================================================
+    ASSIGNMENTS
+   ========================================================= */
+.fa-assignment-course {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.68rem;
+  color: var(--brass-600);
+  margin-bottom: 6px;
+}
+
+.fa-assignment-footer {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.fa-assignment-due {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--slate-600);
+  margin-bottom: 2px;
+}
+
+.badge.fa-badge-submitted {
+  background: var(--success-50);
+  color: var(--success-600);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 7px 12px;
+  border: 1px solid rgba(47, 111, 78, 0.25);
+  border-radius: var(--radius-sm);
+}
+
+/* Modal styling to match navy/brass identity */
+.fa-modal-content {
+  border: none;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.fa-modal-content .modal-header {
+  background: var(--navy-800);
+  color: var(--parchment-50);
+  border-bottom: 3px solid var(--brass-500);
+}
+.fa-modal-content .modal-header .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}
+.fa-modal-content .modal-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 1rem;
+}
+.fa-modal-content .modal-body {
+  padding: 22px;
+}
+.fa-modal-content .modal-footer {
+  border-top: 1px solid var(--hairline);
+}
+
+/* =========================================================
+   RESULTS TABLE
+   ========================================================= */
+.fa-results-table thead th {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.74rem;
+  color: var(--slate-600);
+  border-bottom: 2px solid var(--brass-500);
+  padding: 12px 14px;
+  background: var(--parchment-50);
+}
+
+.fa-results-table tbody td {
+  font-size: 0.9rem;
+  color: var(--ink-900);
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.fa-results-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.badge.fa-badge-grade {
+  background: var(--navy-800);
+  color: var(--brass-400);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  font-size: 0.78rem;
+  padding: 6px 11px;
+  border-radius: var(--radius-sm);
 }
