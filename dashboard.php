@@ -11,8 +11,26 @@ if ($result && $row = mysqli_fetch_assoc($result)) {
     $totalCourses = $row['total'];
 }
 
-// ---------- Stat 2: Pending Assignments (placeholder — assignments table not built yet) ----------
-$pendingAssignments = 0; // TODO: wire up once assignments table exists
+// ---------- Stat 2: Pending Assignments — split into open vs overdue ----------
+$pendingAssignments = 0;
+$overdueAssignments = 0;
+$sql = "SELECT
+            SUM(CASE WHEN a.due_date >= CURDATE() THEN 1 ELSE 0 END) AS open_count,
+            SUM(CASE WHEN a.due_date <  CURDATE() THEN 1 ELSE 0 END) AS overdue_count
+        FROM assignments a
+        WHERE a.id NOT IN (
+            SELECT assignment_id FROM submissions WHERE student_id = ?
+        )";
+$stmt = mysqli_prepare($conn, $sql);
+mysqli_stmt_bind_param($stmt, "i", $studentId);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+if ($result && $row = mysqli_fetch_assoc($result)) {
+    $openAssignments    = (int) ($row['open_count'] ?? 0);
+    $overdueAssignments = (int) ($row['overdue_count'] ?? 0);
+    $pendingAssignments = $openAssignments + $overdueAssignments;
+}
+mysqli_stmt_close($stmt);
 
 // ---------- Stat 3: Latest Notice title ----------
 $latestNoticeTitle = "No notices yet";
@@ -75,6 +93,9 @@ if ($result) {
                 </div>
                 <div class="fa-stat-value"><?php echo $pendingAssignments; ?></div>
                 <div class="fa-stat-label">Pending Assignments</div>
+                <?php if ($overdueAssignments > 0): ?>
+                    <div class="fa-stat-overdue"><?php echo $overdueAssignments; ?> overdue</div>
+                <?php endif; ?>
             </div>
 
             <div class="fa-stat-card">

@@ -955,3 +955,14 @@ a:focus-visible {
   padding: 6px 11px;
   border-radius: var(--radius-sm);
 }
+
+/* Overdue indicator under the Pending Assignments stat card */
+.fa-stat-overdue {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.66rem;
+  color: var(--danger-600);
+  margin-top: 3px;
+  font-weight: 600;
+}
