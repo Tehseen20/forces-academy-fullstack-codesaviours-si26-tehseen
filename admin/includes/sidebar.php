@@ -4,6 +4,11 @@ function fa_admin_nav_active($page, $current) {
     return $page === $current ? 'active' : '';
 }
 ?>
+<button type="button" class="fa-sidebar-toggle" aria-label="Toggle navigation menu">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</button>
+<div class="fa-sidebar-overlay"></div>
+
 <aside class="fa-sidebar">
     <div class="fa-sidebar-brand">
         <div class="fa-sidebar-emblem">
@@ -39,6 +44,10 @@ function fa_admin_nav_active($page, $current) {
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 20V13M12 20V8M19 20V4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             Upload Results
         </a>
+        <a href="timetable.php" class="<?php echo fa_admin_nav_active('timetable.php', $currentPage); ?>">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="4.5" width="17" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 9.5H20.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 3V6M16 3V6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Timetable
+        </a>
         <a href="notices.php" class="<?php echo fa_admin_nav_active('notices.php', $currentPage); ?>">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 4.5C5 3.67 5.67 3 6.5 3H14L19 8V19.5C19 20.33 18.33 21 17.5 21H6.5C5.67 21 5 20.33 5 19.5V4.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3V8H19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 13H15.5M8.5 16.5H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             Post Notice
@@ -52,3 +61,5 @@ function fa_admin_nav_active($page, $current) {
         </a>
     </nav>
 </aside>
+
+<script src="../js/main.js"></script>

@@ -4,6 +4,11 @@ function fa_nav_active($page, $current) {
     return $page === $current ? 'active' : '';
 }
 ?>
+<button type="button" class="fa-sidebar-toggle" aria-label="Toggle navigation menu">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6H20M4 12H20M4 18H20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</button>
+<div class="fa-sidebar-overlay"></div>
+
 <aside class="fa-sidebar">
     <div class="fa-sidebar-brand">
         <div class="fa-sidebar-emblem">
@@ -48,3 +53,5 @@ function fa_nav_active($page, $current) {
         </a>
     </nav>
 </aside>
+
+<script src="js/main.js"></script>

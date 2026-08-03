@@ -966,3 +966,203 @@ a:focus-visible {
   margin-top: 3px;
   font-weight: 600;
 }
+
+/* =========================================================
+   UI/UX ENHANCEMENT PASS
+   Responsiveness, password toggle, input/button polish.
+   Desktop appearance is unchanged — every rule below either
+   only fires under a max-width media query, or only affects
+   newly-added elements (password toggle, mobile nav button).
+   ========================================================= */
+
+/* ---------- Global overflow guard ---------- */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+img { max-width: 100%; height: auto; }
+
+/* ---------- Smoother input focus + button hover (desktop + mobile, additive only) ---------- */
+.form-control.fa-input {
+  transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease), background 0.18s var(--ease), transform 0.12s var(--ease);
+}
+.form-control.fa-input:focus {
+  transform: translateY(-1px);
+}
+.btn.fa-btn-primary,
+.btn.fa-btn-outline,
+.btn.fa-btn-danger,
+.btn.fa-btn-logout {
+  transition: background 0.18s var(--ease), color 0.18s var(--ease), border-color 0.18s var(--ease), transform 0.12s var(--ease), box-shadow 0.18s var(--ease);
+}
+.btn.fa-btn-primary:hover,
+.btn.fa-btn-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px -6px rgba(10, 22, 40, 0.35);
+}
+.btn.fa-btn-outline:hover {
+  transform: translateY(-1px);
+}
+.btn:active { transform: translateY(0); }
+
+/* ---------- Password field wrapper + eye toggle ---------- */
+.fa-password-wrap {
+  position: relative;
+}
+.fa-password-wrap .form-control.fa-input {
+  padding-right: 44px;
+}
+.fa-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 50%;
+  color: var(--slate-400);
+  transition: color 0.18s var(--ease), background 0.18s var(--ease);
+}
+.fa-password-toggle:hover {
+  color: var(--navy-700);
+  background: var(--parchment-100);
+}
+.fa-password-toggle:focus-visible {
+  outline: 2px solid var(--brass-500);
+  outline-offset: 2px;
+}
+.fa-password-toggle svg {
+  position: absolute;
+  width: 19px;
+  height: 19px;
+  transition: opacity 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.fa-password-toggle .fa-eye-open {
+  opacity: 0;
+  transform: scale(0.7) rotate(-8deg);
+}
+.fa-password-toggle .fa-eye-closed {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.fa-password-toggle.is-visible .fa-eye-open {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+.fa-password-toggle.is-visible .fa-eye-closed {
+  opacity: 0;
+  transform: scale(0.7) rotate(8deg);
+}
+
+/* ---------- Mobile sidebar toggle button (hidden on desktop) ---------- */
+.fa-sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 40;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--brass-500);
+  background: var(--navy-950);
+  color: var(--brass-400);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px -4px rgba(10, 22, 40, 0.45);
+}
+.fa-sidebar-toggle svg { width: 20px; height: 20px; }
+
+.fa-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 17, 40, 0.55);
+  z-index: 25;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease);
+}
+.fa-sidebar-overlay.is-open {
+  display: block;
+  opacity: 1;
+}
+
+/* =========================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================= */
+@media (max-width: 991.98px) {
+  .fa-auth-card { max-width: 640px; }
+}
+
+@media (max-width: 767.98px) {
+  /* Sidebar becomes an off-canvas drawer instead of icon-rail */
+  .fa-sidebar-toggle { display: flex; }
+
+  .fa-sidebar {
+    width: 250px;
+    transform: translateX(-100%);
+    transition: transform 0.25s var(--ease);
+    z-index: 30;
+  }
+  .fa-sidebar.is-open {
+    transform: translateX(0);
+  }
+  .fa-sidebar-brand-text { display: block; }
+  .fa-sidebar-nav a { padding: 10px 12px; justify-content: flex-start; }
+
+  .fa-main {
+    margin-left: 0;
+    width: 100%;
+    padding: 66px 16px 32px;
+  }
+
+  /* Stat grids / content grids / course grids already collapse via their own
+     rules at various breakpoints — these ensure the same on true phone widths */
+  .fa-stat-grid,
+  .fa-content-grid,
+  .fa-course-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .fa-id-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* Auth cards stack full width */
+  .fa-auth-wrap { padding: 16px; }
+  .fa-crest-panel { padding: 26px 22px 18px; }
+  .fa-form-panel { padding: 28px 22px 32px; }
+
+  .fa-row-2 { grid-template-columns: 1fr; gap: 0; }
+
+  /* Admin search bar row wraps cleanly */
+  .fa-panel form.d-flex { flex-wrap: wrap; }
+  .fa-panel form.d-flex .fa-input { width: 100%; }
+
+  /* Tables: ensure horizontal scroll instead of squeeze/break */
+  .table-responsive { -webkit-overflow-scrolling: touch; }
+
+  table.fa-results-table { font-size: 0.82rem; }
+  table.fa-results-table th,
+  table.fa-results-table td { padding: 9px 10px; white-space: nowrap; }
+}
+
+@media (max-width: 480px) {
+  .fa-id-name { font-size: 1.35rem; }
+  .fa-stat-value { font-size: 1.25rem; }
+  .btn.fa-btn-primary, .btn.fa-btn-outline, .btn.fa-btn-danger {
+    font-size: 0.75rem;
+    padding: 10px 14px;
+  }
+  .fa-course-card-top { font-size: 0.85rem; }
+}

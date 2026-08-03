@@ -95,17 +95,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input type="email"
                            name="email"
                            class="form-control fa-input"
-                           placeholder="you@example.com"
+
                            required>
                 </div>
 
                 <div class="fa-field">
                     <label>Password</label>
-                    <input type="password"
-                           name="password"
-                           class="form-control fa-input"
-                           placeholder="••••••••"
-                           required>
+                    <div class="fa-password-wrap">
+                        <input type="password"
+                               name="password"
+                               class="form-control fa-input"
+
+                               autocomplete="new-password"
+                               readonly
+                               onfocus="this.removeAttribute('readonly');"
+                               required>
+                        <button type="button" class="fa-password-toggle" aria-label="Show password">
+                            <svg class="fa-eye-closed" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 12C2 12 5.5 5 12 5C18.5 5 22 12 22 12C22 12 18.5 19 12 19C5.5 19 2 12 2 12Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg>
+                            <svg class="fa-eye-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3L21 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M10.6 5.2C11.06 5.07 11.53 5 12 5C18.5 5 22 12 22 12C21.6 12.8 20.6 14.3 19 15.6M6.5 6.5C4 8.1 2 12 2 12C2 12 5.5 19 12 19C13.9 19 15.5 18.5 16.8 17.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.9 10.1C9.5 10.5 9.3 11 9.3 11.5C9.3 12.6 10.2 13.5 11.3 13.5C11.9 13.5 12.4 13.2 12.8 12.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
                 </div>
 
                 <button class="btn fa-btn-primary w-100 mt-2">
@@ -123,5 +132,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div>
 
+<script src="js/main.js"></script>
 </body>
 </html>
