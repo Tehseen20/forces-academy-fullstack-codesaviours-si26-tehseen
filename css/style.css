@@ -1166,3 +1166,40 @@ img { max-width: 100%; height: auto; }
   }
   .fa-course-card-top { font-size: 0.85rem; }
 }
+
+/* =========================================================
+   STUDENT TIMETABLE — weekly grid
+   ========================================================= */
+.fa-timetable-grid th,
+.fa-timetable-grid td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.fa-timetable-slot {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--slate-600);
+  white-space: nowrap;
+  background: var(--parchment-50);
+}
+
+.fa-timetable-subject {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 0.78rem;
+  color: var(--navy-800);
+  font-weight: 600;
+}
+
+.fa-timetable-teacher {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--brass-600);
+  margin-top: 2px;
+}
+
+.fa-timetable-empty {
+  color: var(--hairline);
+}
