@@ -51,6 +51,10 @@ function fa_nav_active($page, $current) {
 
         <div class="fa-sidebar-divider"></div>
 
+        <a href="profile.php" class="<?php echo fa_nav_active('profile.php', $currentPage); ?>">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.5"/><path d="M5 20c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            My Profile
+        </a>
         <a href="logout.php" class="fa-sidebar-logout">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 4H18.5C19.33 4 20 4.67 20 5.5V18.5C20 19.33 19.33 20 18.5 20H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M4 12H14.5M14.5 12L11 8.5M14.5 12L11 15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Logout
