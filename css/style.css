@@ -1203,3 +1203,87 @@ img { max-width: 100%; height: auto; }
 .fa-timetable-empty {
   color: var(--hairline);
 }
+
+/* =========================================================
+   FEES
+   ========================================================= */
+.badge.fa-badge-fee-paid {
+  background: var(--success-50);
+  color: var(--success-600);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  font-size: 0.72rem;
+  padding: 6px 11px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(47, 111, 78, 0.25);
+}
+.badge.fa-badge-fee-pending {
+  background: var(--parchment-100);
+  color: var(--navy-700);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  font-size: 0.72rem;
+  padding: 6px 11px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--hairline);
+}
+.badge.fa-badge-fee-overdue {
+  background: var(--danger-50);
+  color: var(--danger-600);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  font-size: 0.72rem;
+  padding: 6px 11px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(166, 48, 59, 0.25);
+}
+
+/* Prominent total-pending banner at top of student fees page */
+.fa-fee-summary {
+  background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-700) 100%);
+  color: var(--parchment-50);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-card);
+}
+
+.fa-fee-summary-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.72rem;
+  color: var(--brass-400);
+  margin-bottom: 6px;
+}
+
+.fa-fee-summary-value {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.01em;
+}
+
+.fa-fee-summary-tag {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  background: rgba(166, 48, 59, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.fa-fee-summary-tag-clear {
+  background: rgba(47, 111, 78, 0.3);
+}
+
+@media (max-width: 480px) {
+  .fa-fee-summary-value { font-size: 1.5rem; }
+}

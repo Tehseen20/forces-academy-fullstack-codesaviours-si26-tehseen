@@ -52,6 +52,10 @@ function fa_admin_nav_active($page, $current) {
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 4.5C5 3.67 5.67 3 6.5 3H14L19 8V19.5C19 20.33 18.33 21 17.5 21H6.5C5.67 21 5 20.33 5 19.5V4.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3V8H19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 13H15.5M8.5 16.5H13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             Post Notice
         </a>
+        <a href="fees.php" class="<?php echo fa_admin_nav_active('fees.php', $currentPage); ?>">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="6" width="18" height="13" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 10H21" stroke="currentColor" stroke-width="1.5"/><path d="M7 14.5H11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Manage Fees
+        </a>
 
         <div class="fa-sidebar-divider"></div>
 
