@@ -2,6 +2,8 @@
 require_once 'config/db.php';
 
 $error = "";
+$emailError = "";
+$passwordError = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
@@ -28,33 +30,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     else {
+        // ---------- Email validation: must end with @gmail.com ----------
+        if (!preg_match('/@gmail\.com$/i', $email)) {
+            $emailError = "Please enter a valid Gmail address ending with @gmail.com.";
+        }
 
-        $hashed_password = password_hash(
-            $password,
-            PASSWORD_DEFAULT
-        );
+        // ---------- Password validation: max 10 characters ----------
+        // (Kept in sync with login.php / admin/login.php — a password that couldn't
+        // be entered at login shouldn't be allowed at registration either.)
+        if (strlen($password) > 10) {
+            $passwordError = "Password cannot be more than 10 characters long.";
+        }
 
-        $sql = "INSERT INTO students
-                (full_name, email, password, roll_number, class)
-                VALUES (?, ?, ?, ?, ?)";
+        if ($emailError === "" && $passwordError === "") {
 
-        $stmt = mysqli_prepare($conn, $sql);
+            $hashed_password = password_hash(
+                $password,
+                PASSWORD_DEFAULT
+            );
 
-        mysqli_stmt_bind_param(
-            $stmt,
-            "sssss",
-            $full_name,
-            $email,
-            $hashed_password,
-            $roll_number,
-            $class
-        );
+            $sql = "INSERT INTO students
+                    (full_name, email, password, roll_number, class)
+                    VALUES (?, ?, ?, ?, ?)";
 
-        if (mysqli_stmt_execute($stmt)) {
-            header("Location: login.php?registered=1");
-            exit();
-        } else {
-            $error = "Registration failed. Email or Roll Number may already exist.";
+            $stmt = mysqli_prepare($conn, $sql);
+
+            mysqli_stmt_bind_param(
+                $stmt,
+                "sssss",
+                $full_name,
+                $email,
+                $hashed_password,
+                $roll_number,
+                $class
+            );
+
+            if (mysqli_stmt_execute($stmt)) {
+                header("Location: login.php?registered=1");
+                exit();
+            } else {
+                $error = "Registration failed. Email or Roll Number may already exist.";
+            }
         }
     }
 
@@ -120,10 +136,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="fa-field">
                     <label>Email</label>
                     <input type="email"
+                           id="regEmail"
                            class="form-control fa-input"
                            name="email"
 
                            required>
+                    <div class="fa-field-error" id="regEmailError"><?php echo htmlspecialchars($emailError); ?></div>
                 </div>
 
                 <div class="fa-row-2">
@@ -131,6 +149,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label>Password</label>
                         <div class="fa-password-wrap">
                             <input type="password"
+                                   id="regPassword"
                                    class="form-control fa-input"
                                    name="password"
 
@@ -143,6 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <svg class="fa-eye-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3L21 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M10.6 5.2C11.06 5.07 11.53 5 12 5C18.5 5 22 12 22 12C21.6 12.8 20.6 14.3 19 15.6M6.5 6.5C4 8.1 2 12 2 12C2 12 5.5 19 12 19C13.9 19 15.5 18.5 16.8 17.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.9 10.1C9.5 10.5 9.3 11 9.3 11.5C9.3 12.6 10.2 13.5 11.3 13.5C11.9 13.5 12.4 13.2 12.8 12.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                             </button>
                         </div>
+                        <div class="fa-field-error" id="regPasswordError"><?php echo htmlspecialchars($passwordError); ?></div>
                     </div>
 
                     <div class="fa-field">
@@ -200,5 +220,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 <script src="js/main.js"></script>
+<script>
+(function () {
+    var form = document.querySelector('.fa-form-panel form');
+    var emailInput = document.getElementById('regEmail');
+    var passwordInput = document.getElementById('regPassword');
+    var emailError = document.getElementById('regEmailError');
+    var passwordError = document.getElementById('regPasswordError');
+
+    if (!form) return;
+
+    function clearError(input, errorEl) {
+        input.classList.remove('fa-input-invalid');
+        errorEl.textContent = '';
+    }
+
+    function showError(input, errorEl, message) {
+        input.classList.add('fa-input-invalid');
+        errorEl.textContent = message;
+    }
+
+    emailInput.addEventListener('input', function () { clearError(emailInput, emailError); });
+    passwordInput.addEventListener('input', function () { clearError(passwordInput, passwordError); });
+
+    form.addEventListener('submit', function (e) {
+        var valid = true;
+        var emailVal = emailInput.value.trim().toLowerCase();
+
+        if (!emailVal.endsWith('@gmail.com')) {
+            showError(emailInput, emailError, 'Please enter a valid Gmail address ending with @gmail.com.');
+            valid = false;
+        } else {
+            clearError(emailInput, emailError);
+        }
+
+        if (passwordInput.value.length > 10) {
+            showError(passwordInput, passwordError, 'Password cannot be more than 10 characters long.');
+            valid = false;
+        } else {
+            clearError(passwordInput, passwordError);
+        }
+
+        if (!valid) {
+            e.preventDefault();
+        }
+    });
+})();
+</script>
 </body>
 </html>

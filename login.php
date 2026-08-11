@@ -3,36 +3,52 @@ session_start();
 require_once 'config/db.php';
 
 $error = "";
+$emailError = "";
+$passwordError = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    $sql = "SELECT id, full_name, password
-            FROM students
-            WHERE email = ?";
+    // ---------- Email validation: must end with @gmail.com ----------
+    if (!preg_match('/@gmail\.com$/i', $email)) {
+        $emailError = "Please enter a valid Gmail address ending with @gmail.com.";
+    }
 
-    $stmt = mysqli_prepare($conn, $sql);
+    // ---------- Password validation: max 8 characters ----------
+    if (strlen($password) > 10) {
+        $passwordError = "Password cannot be more than 10 characters long.";
+    }
 
-    mysqli_stmt_bind_param($stmt, "s", $email);
+    // Only attempt login if both fields passed validation
+    if ($emailError === "" && $passwordError === "") {
 
-    mysqli_stmt_execute($stmt);
+        $sql = "SELECT id, full_name, password
+                FROM students
+                WHERE email = ?";
 
-    $result = mysqli_stmt_get_result($stmt);
+        $stmt = mysqli_prepare($conn, $sql);
 
-    $student = mysqli_fetch_assoc($result);
+        mysqli_stmt_bind_param($stmt, "s", $email);
 
-    if ($student && password_verify($password, $student['password'])) {
+        mysqli_stmt_execute($stmt);
 
-        $_SESSION['student_id'] = $student['id'];
-        $_SESSION['student_name'] = $student['full_name'];
+        $result = mysqli_stmt_get_result($stmt);
 
-        header("Location: dashboard.php");
-        exit();
+        $student = mysqli_fetch_assoc($result);
 
-    } else {
-        $error = "Invalid email or password.";
+        if ($student && password_verify($password, $student['password'])) {
+
+            $_SESSION['student_id'] = $student['id'];
+            $_SESSION['student_name'] = $student['full_name'];
+
+            header("Location: dashboard.php");
+            exit();
+
+        } else {
+            $error = "Invalid email or password.";
+        }
     }
 }
 ?>
@@ -93,16 +109,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="fa-field">
                     <label>Email</label>
                     <input type="email"
+                           id="loginEmail"
                            name="email"
                            class="form-control fa-input"
 
                            required>
+                    <div class="fa-field-error" id="loginEmailError"><?php echo htmlspecialchars($emailError); ?></div>
                 </div>
 
                 <div class="fa-field">
                     <label>Password</label>
                     <div class="fa-password-wrap">
                         <input type="password"
+                               id="loginPassword"
                                name="password"
                                class="form-control fa-input"
 
@@ -115,6 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <svg class="fa-eye-open" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 3L21 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M10.6 5.2C11.06 5.07 11.53 5 12 5C18.5 5 22 12 22 12C21.6 12.8 20.6 14.3 19 15.6M6.5 6.5C4 8.1 2 12 2 12C2 12 5.5 19 12 19C13.9 19 15.5 18.5 16.8 17.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.9 10.1C9.5 10.5 9.3 11 9.3 11.5C9.3 12.6 10.2 13.5 11.3 13.5C11.9 13.5 12.4 13.2 12.8 12.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                         </button>
                     </div>
+                    <div class="fa-field-error" id="loginPasswordError"><?php echo htmlspecialchars($passwordError); ?></div>
                 </div>
 
                 <button class="btn fa-btn-primary w-100 mt-2">
@@ -133,5 +153,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 
 <script src="js/main.js"></script>
+<script>
+(function () {
+    var form = document.querySelector('.fa-form-panel form');
+    var emailInput = document.getElementById('loginEmail');
+    var passwordInput = document.getElementById('loginPassword');
+    var emailError = document.getElementById('loginEmailError');
+    var passwordError = document.getElementById('loginPasswordError');
+
+    if (!form) return;
+
+    function clearError(input, errorEl) {
+        input.classList.remove('fa-input-invalid');
+        errorEl.textContent = '';
+    }
+
+    function showError(input, errorEl, message) {
+        input.classList.add('fa-input-invalid');
+        errorEl.textContent = message;
+    }
+
+    emailInput.addEventListener('input', function () { clearError(emailInput, emailError); });
+    passwordInput.addEventListener('input', function () { clearError(passwordInput, passwordError); });
+
+    form.addEventListener('submit', function (e) {
+        var valid = true;
+        var emailVal = emailInput.value.trim().toLowerCase();
+
+        if (!emailVal.endsWith('@gmail.com')) {
+            showError(emailInput, emailError, 'Please enter a valid Gmail address ending with @gmail.com.');
+            valid = false;
+        } else {
+            clearError(emailInput, emailError);
+        }
+
+        if (passwordInput.value.length > 10) {
+            showError(passwordInput, passwordError, 'Password cannot be more than 10 characters long.');
+            valid = false;
+        } else {
+            clearError(passwordInput, passwordError);
+        }
+
+        if (!valid) {
+            e.preventDefault();
+        }
+    });
+})();
+</script>
 </body>
 </html>
