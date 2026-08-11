@@ -4,17 +4,17 @@ require_once '../config/db.php';
 
 $pageTitle = "Manage Students";
 
-// ---------- Search filter (by name or roll number) ----------
+// ---------- Search filter (by name, email, or roll number) ----------
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 if ($search !== '') {
     $sql = "SELECT id, full_name, email, roll_number, class, created_at
             FROM students
-            WHERE full_name LIKE ? OR roll_number LIKE ?
+            WHERE full_name LIKE ? OR email LIKE ? OR roll_number LIKE ?
             ORDER BY full_name ASC";
     $stmt = mysqli_prepare($conn, $sql);
     $likeSearch = "%$search%";
-    mysqli_stmt_bind_param($stmt, "ss", $likeSearch, $likeSearch);
+    mysqli_stmt_bind_param($stmt, "sss", $likeSearch, $likeSearch, $likeSearch);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
 } else {
@@ -57,7 +57,7 @@ if ($result) {
             <input type="text"
                    name="search"
                    class="form-control fa-input"
-                   placeholder="Search by name or roll number..."
+                   placeholder="Search by name, email, or roll number..."
                    value="<?php echo htmlspecialchars($search); ?>">
             <button type="submit" class="btn fa-btn-primary" style="white-space: nowrap;">Search</button>
             <?php if ($search !== ''): ?>

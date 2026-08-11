@@ -4,8 +4,19 @@ require_once 'config/db.php';
 
 $pageTitle = "Notice Board";
 
+// ---------- Search by title (GET request + LIKE query) ----------
+$search = isset($_GET['search']) ? trim($_GET['search']) : '';
+
 $notices = [];
-$result = mysqli_query($conn, "SELECT title, content, created_at FROM notices ORDER BY created_at DESC");
+if ($search !== '') {
+    $stmt = mysqli_prepare($conn, "SELECT title, content, created_at FROM notices WHERE title LIKE ? ORDER BY created_at DESC");
+    $likeSearch = "%$search%";
+    mysqli_stmt_bind_param($stmt, "s", $likeSearch);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+} else {
+    $result = mysqli_query($conn, "SELECT title, content, created_at FROM notices ORDER BY created_at DESC");
+}
 if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
         $notices[] = $row;
@@ -32,11 +43,26 @@ if ($result) {
     <main class="fa-main">
         <h3 class="fa-section-title">Notice Board</h3>
 
+        <!-- Search bar -->
+        <form method="GET" class="fa-panel mb-3 d-flex gap-2" style="padding: 16px;">
+            <input type="text"
+                   name="search"
+                   class="form-control fa-input"
+                   placeholder="Search notices by title..."
+                   value="<?php echo htmlspecialchars($search); ?>">
+            <button type="submit" class="btn fa-btn-primary" style="white-space: nowrap;">Search</button>
+            <?php if ($search !== ''): ?>
+                <a href="notices.php" class="btn fa-btn-outline" style="white-space: nowrap;">Clear</a>
+            <?php endif; ?>
+        </form>
+
         <?php if (empty($notices)): ?>
             <div class="fa-panel fa-empty-state">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 4.5C5 3.67 5.67 3 6.5 3H14L19 8V19.5C19 20.33 18.33 21 17.5 21H6.5C5.67 21 5 20.33 5 19.5V4.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3V8H19" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-                <h5 style="font-family: var(--font-display); text-transform: uppercase; color: var(--navy-800);">No notices posted yet</h5>
-                <p style="font-size: 0.9rem;">Check back later for announcements from the Academy.</p>
+                <h5 style="font-family: var(--font-display); text-transform: uppercase; color: var(--navy-800);">
+                    <?php echo $search !== '' ? 'No matching notices' : 'No notices posted yet'; ?>
+                </h5>
+                <p style="font-size: 0.9rem;"><?php echo $search !== '' ? 'Try a different search term.' : 'Check back later for announcements from the Academy.'; ?></p>
             </div>
         <?php else: ?>
             <div class="fa-panel">
