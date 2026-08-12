@@ -1287,3 +1287,94 @@ img { max-width: 100%; height: auto; }
 @media (max-width: 480px) {
   .fa-fee-summary-value { font-size: 1.5rem; }
 }
+
+/* =========================================================
+   FIELD-LEVEL VALIDATION ERRORS (login pages)
+   ========================================================= */
+.fa-field-error {
+  color: var(--danger-600);
+  font-size: 0.78rem;
+  margin-top: 6px;
+  min-height: 0;
+  line-height: 1.4;
+}
+.fa-field-error:empty {
+  margin-top: 0;
+}
+
+.form-control.fa-input.fa-input-invalid {
+  border-color: var(--danger-600);
+  background: var(--danger-50);
+}
+.form-control.fa-input.fa-input-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(166, 48, 59, 0.14);
+}
+
+/* =========================================================
+   PRINT RESULTS
+   ========================================================= */
+.fa-print-header {
+  display: none; /* only shown inside @media print below */
+}
+
+@media print {
+  /* Hide all navigation chrome and interactive controls */
+  .fa-sidebar,
+  .fa-sidebar-toggle,
+  .fa-sidebar-overlay,
+  .btn,
+  form button,
+  .fa-id-card,
+  .fa-content-grid,
+  nav {
+    display: none !important;
+  }
+
+  /* Let the results content take the full printed page instead of the app layout */
+  .fa-shell {
+    display: block !important;
+  }
+  .fa-main {
+    margin-left: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  .fa-panel {
+    box-shadow: none !important;
+    border: 1px solid #000 !important;
+  }
+
+  .fa-print-header {
+    display: block !important;
+    margin-bottom: 18px;
+  }
+  .fa-print-header h2 {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    color: #000;
+    margin-bottom: 4px;
+  }
+  .fa-print-header p {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #333;
+  }
+
+  .fa-results-table th,
+  .fa-results-table td {
+    color: #000 !important;
+    border-color: #000 !important;
+  }
+
+  .badge.fa-badge-grade {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #000;
+  }
+}

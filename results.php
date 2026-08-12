@@ -36,7 +36,20 @@ mysqli_stmt_close($stmt);
     <?php include 'includes/sidebar.php'; ?>
 
     <main class="fa-main">
-        <h3 class="fa-section-title">My Results</h3>
+
+        <!-- Print-only header — hidden on screen, shown only in the printed output -->
+        <div class="fa-print-header">
+            <h2>Forces Academy — Academic Results</h2>
+            <p>Student: <?php echo htmlspecialchars($studentName); ?> &nbsp;|&nbsp; Printed: <?php echo date("d M Y"); ?></p>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+            <h3 class="fa-section-title mb-0" style="flex: 1;">My Results</h3>
+            <button type="button" class="btn fa-btn-outline fa-print-btn" onclick="window.print()">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:16px;height:16px;vertical-align:-3px;margin-right:6px;"><path d="M6 9V3H18V9" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M6 18H4.5C3.67 18 3 17.33 3 16.5V10.5C3 9.67 3.67 9 4.5 9H19.5C20.33 9 21 9.67 21 10.5V16.5C21 17.33 20.33 18 19.5 18H18" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><rect x="6" y="14" width="12" height="7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+                Print Results
+            </button>
+        </div>
 
         <?php if (empty($results)): ?>
             <div class="fa-panel fa-empty-state">
