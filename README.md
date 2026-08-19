@@ -14,8 +14,8 @@ A full-stack Learning Management System built for a military-academy-themed inst
 | | |
 |---|---|
 | ![Student Dashboard](./screenshots/dashboard.png) | ![Assignments](./screenshots/assignments.png) |
-| ![Admin Panel](./screenshots/admin-dashboard.png) | ![Mobile View](./screenshots/manage-students.png) |
-| ![Mobile View](./screenshots/mobile-view.jpeg) |
+| ![Admin Panel](./screenshots/admin-dashboard.png) | ![Manage Students](./screenshots/manage-students.png) |
+| ![Mobile View](./screenshots/mobile-view.jpeg) | |
 
 ---
 
