@@ -2,7 +2,7 @@
 
 A full-stack Learning Management System built for a military-academy-themed institution — students manage their courses, assignments, results, timetable, and fees, while admins run the entire academy through a dedicated control panel.
 
-**Live Site:** [tehseenproject.ct.ws](https://tehseenproject.ct.ws/login.php) <!-- confirm this is your exact live URL before submitting -->
+**Live Site:** [tehseenproject.ct.ws](https://tehseenproject.ct.ws/login.php) 
 **Admin Panel:** [tehseenproject.ct.ws/admin/login.php](https://tehseenproject.ct.ws/admin/login.php)
 
 ---
@@ -14,7 +14,8 @@ A full-stack Learning Management System built for a military-academy-themed inst
 | | |
 |---|---|
 | ![Student Dashboard](./screenshots/dashboard.png) | ![Assignments](./screenshots/assignments.png) |
-| ![Admin Panel](./screenshots/admin-dashboard.png) | ![Mobile View](./screenshots/mobile.png) |
+| ![Admin Panel](./screenshots/admin-dashboard.png) | ![Manage Students](./screenshots/manage-students.png) |
+  ![Mobile-View](./screenshots/mobile-view.jpeg) |
 
 ---
 
