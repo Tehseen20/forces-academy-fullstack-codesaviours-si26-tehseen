@@ -97,20 +97,78 @@ A full-stack Learning Management System built for a military-academy-themed inst
 ---
 
 ## Project Structure
-
-```
-/                    → student-facing pages
-/admin/              → admin panel (separate login/session)
-/admin/actions/      → admin CRUD handlers (insert/update/delete)
-/includes/           → shared student-side PHP (auth check, sidebar)
-/admin/includes/     → shared admin-side PHP
-/config/db.php       → database connection
-/css/style.css       → complete design system
-/js/main.js          → mobile nav + password toggle
-/uploads/            → student assignment submissions
-```
-
----
+forces-academy-lms/
+│
+├── index.php                  → Redirects visitors to login.php
+├── login.php                  → Student login (with validation + password toggle)
+├── register.php                → Student registration
+├── logout.php                  → Destroys student session
+│
+├── dashboard.php               → Student dashboard — stats, recent notices, quick links
+├── courses.php                 → List of all courses
+├── notices.php                 → Notice board with search
+├── assignments.php             → View assignments, submit files
+├── upload_assignment.php       → Handles assignment file uploads (validation + storage)
+├── results.php                 → Student's own results, with Print Results feature
+├── timetable.php               → Weekly timetable filtered to the student's class
+├── fees.php                    → Fee records + total pending amount
+├── profile.php                 → Edit profile (name/email) + change password
+│
+├── config/
+│   └── db.php                  → Single database connection used by every page
+│
+├── includes/                   → Shared code for student-facing pages
+│   ├── auth.php                → Session check — redirects to login if not authenticated
+│   └── sidebar.php              → Sidebar navigation (shared across all student pages)
+│
+├── admin/                      → Admin panel — completely separate login/session
+│   ├── login.php                → Admin login
+│   ├── logout.php               → Destroys admin session
+│   ├── dashboard.php            → Admin dashboard — academy-wide stats
+│   ├── students.php             → Manage students (search, view, delete)
+│   ├── student_view.php         → View a single student's full details
+│   ├── courses.php              → Manage courses (list + add)
+│   ├── edit_course.php          → Edit an existing course
+│   ├── assignments.php          → Manage assignments (list + add)
+│   ├── edit_assignment.php      → Edit an existing assignment
+│   ├── notices.php              → Post and delete notices
+│   ├── results.php              → Upload results for students
+│   ├── timetable.php            → Manage class timetables
+│   ├── fees.php                 → Manage student fee records
+│   │
+│   ├── includes/
+│   │   ├── auth.php             → Admin session check (separate from student auth)
+│   │   └── sidebar.php           → Admin sidebar navigation
+│   │
+│   └── actions/                 → Backend handlers — no HTML, just logic + redirect
+│       ├── save_course.php       (insert or update, based on hidden course_id)
+│       ├── delete_course.php
+│       ├── save_assignment.php
+│       ├── delete_assignment.php
+│       ├── save_notice.php
+│       ├── delete_notice.php
+│       ├── save_result.php
+│       ├── save_timetable.php
+│       ├── delete_timetable.php
+│       ├── save_fee.php
+│       ├── mark_fee_paid.php
+│       ├── delete_fee.php
+│       └── delete_student.php
+│
+├── css/
+│   └── style.css                → Complete design system (colors, typography, all components)
+│
+├── js/
+│   └── main.js                  → Mobile sidebar toggle + password show/hide
+│
+├── uploads/                     → Student-submitted assignment files (protected by .htaccess)
+│   └── .htaccess                → Blocks script execution inside this folder
+│
+├── database/
+│   ├── schema.sql               → Full database schema — all 9 tables + sample data
+│   └── README.md                 → Setup instructions for the database
+│
+└── README.md                    → This file
 
 ## Built By
 
