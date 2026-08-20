@@ -2,14 +2,12 @@
 
 A full-stack Learning Management System built for a military-academy-themed institution — students manage their courses, assignments, results, timetable, and fees, while admins run the entire academy through a dedicated control panel.
 
-**Live Site:** [tehseenproject.ct.ws](https://tehseenproject.ct.ws/login.php) 
+**Live Site:** [tehseenproject.ct.ws](https://tehseenproject.ct.ws)
 **Admin Panel:** [tehseenproject.ct.ws/admin/login.php](https://tehseenproject.ct.ws/admin/login.php)
 
 ---
 
 ## Screenshots
-
-
 
 | | |
 |---|---|
@@ -25,7 +23,7 @@ A full-stack Learning Management System built for a military-academy-themed inst
 - **Database:** MySQL
 - **Frontend:** HTML5, custom CSS design system, Bootstrap 5
 - **JavaScript:** Vanilla JS (no framework) — mobile navigation, password visibility toggle
-- **Fonts:** Oswald, Inter, JetBrains Mono (Google Fonts) 
+- **Fonts:** Oswald, Inter, JetBrains Mono (Google Fonts)
 - **Hosting:** InfinityFree (free PHP + MySQL hosting)
 - **Version Control:** Git & GitHub
 
@@ -43,7 +41,7 @@ A full-stack Learning Management System built for a military-academy-themed inst
 - Weekly timetable filtered to the student's own class
 - Fee records with total pending amount shown prominently
 - Editable profile (name, email) and secure password change
-- Fully responsive — tested on mobile
+- Fully responsive — off-canvas mobile navigation, tested on mobile, tablet, and desktop
 
 ### Admin Panel
 - Completely separate login and session system from the student portal
@@ -72,7 +70,7 @@ A full-stack Learning Management System built for a military-academy-themed inst
 
 2. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/forces-academy-lms.git
+   git clone https://github.com/Tehseen20/forces-academy-fullstack-codesaviours-si26-tehseen.git
    ```
    Place the folder inside your server's web root (e.g. `htdocs/` for XAMPP).
 
@@ -80,7 +78,7 @@ A full-stack Learning Management System built for a military-academy-themed inst
    - Start Apache and MySQL from your XAMPP/Laragon control panel
    - Open phpMyAdmin (`http://localhost/phpmyadmin`)
    - Create a new database named `forces_academy_lms`
-   - Import the SQL files from the `/database` folder
+   - Open the SQL tab and run the full contents of `database/schema.sql` — this creates every table and inserts sample data in one go
 
 4. **Configure the database connection:**
    Open `config/db.php` and set your local credentials:
@@ -92,11 +90,13 @@ A full-stack Learning Management System built for a military-academy-themed inst
    ```
 
 5. **Run the project:**
-   Visit `http://localhost/forces-academy-lms/` in your browser. Register a new student account, or create an admin account directly in the `admins` table via phpMyAdmin (passwords must be hashed).
+   Visit `http://localhost/forces-academy-lms/` in your browser. Register a new student account, or log in as admin using the sample credentials listed in `database/README.md`.
 
 ---
 
 ## Project Structure
+
+```
 forces-academy-lms/
 │
 ├── index.php                  → Redirects visitors to login.php
@@ -169,6 +169,15 @@ forces-academy-lms/
 │   └── README.md                 → Setup instructions for the database
 │
 └── README.md                    → This file
+```
+
+### Why it's organized this way
+
+- **Student pages live at the root**, admin pages live inside `/admin/` — this keeps the two user roles completely separate, both in the URL structure and in the codebase, matching how their sessions never overlap.
+- **`admin/actions/` holds only logic, never HTML** — every file in there does one job (insert, update, or delete) and immediately redirects back to a list page. This separates "what the admin sees" from "what happens when they submit a form."
+- **`includes/` vs `admin/includes/`** are deliberately separate, even though they serve a similar purpose, because the student and admin sidebars/auth checks are genuinely different — sharing one file between them would mean one wrong `if` statement could accidentally leak admin access to a student page.
+
+---
 
 ## Built By
 
