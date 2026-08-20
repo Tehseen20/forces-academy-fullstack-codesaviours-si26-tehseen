@@ -41,7 +41,7 @@ A full-stack Learning Management System built for a military-academy-themed inst
 - Weekly timetable filtered to the student's own class
 - Fee records with total pending amount shown prominently
 - Editable profile (name, email) and secure password change
-- Fully responsive — off-canvas mobile navigation, tested on mobile, tablet, and desktop
+- Fully responsive — tested on mobile
 
 ### Admin Panel
 - Completely separate login and session system from the student portal
@@ -90,7 +90,7 @@ A full-stack Learning Management System built for a military-academy-themed inst
    ```
 
 5. **Run the project:**
-   Visit `http://localhost/forces-academy-lms/` in your browser. Register a new student account, or log in as admin using the sample credentials listed in `database/README.md`.
+   Visit `http://localhost/forces-academy-lms/` in your browser. Register a new student account, or log in as admin using the sample credentials listed in `/database`.
 
 ---
 
