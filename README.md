@@ -80,7 +80,7 @@ A full-stack Learning Management System built for a military-academy-themed inst
    - Start Apache and MySQL from your XAMPP/Laragon control panel
    - Open phpMyAdmin (`http://localhost/phpmyadmin`)
    - Create a new database named `forces_academy_lms`
-   - Import the SQL files from the `/database` folder, in order (schema files, then any sample-data files)
+   - Import the SQL files from the `/database` folder
 
 4. **Configure the database connection:**
    Open `config/db.php` and set your local credentials:
